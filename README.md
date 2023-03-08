@@ -14,7 +14,7 @@
   # pnpm i jacky-vite-plugins
 ```
 
-## condition-compiler
+## 插件1 - condition-compiler
 
 ### 介绍
 
@@ -192,5 +192,46 @@ conditionCompilerPlugin 方法还可以有第二个参数，是一个对象，�
    ```
 
    > 当include存在时，exclude不生效
+
+## 插件二 - scan-preview
+
+在移动端H5开发中，很多同学都需要使用真机进行调试，那么在项目启动后，vite终端会打印出一些当前启动的url信息
+
+```bash
+  VITE v4.1.4  ready in 327 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.2.168:5173/
+```
+
+如果你的手机也在同一个局域网下，那么你可以输入network中的网址，进行真机预览调试，但这样会稍显麻烦，在手机浏览器中打出这一串ip地址，反正个人觉得很烦，那么有没有类似微信小程序或者其他小程序，在编译后生成一张可预览的二维码，直接扫码预览？
+
+这个插件就是干这个事情的！！！
+
+### usage
+
+```ts
+// vite.config.ts
+// ......
+import { scanPreviewPlugin } from 'jacky-vite-plugins'
+
+export default defineConfig({
+  plugins: [
+    scanPreviewPlugin(),
+    vue()
+  ]
+})
+```
+
+然后你的终端就会出现可预览的二维码了
+
+### 参数
+
+scanPreviewPlugin接受一个opts对象作为参数
+
+  1. level， 二维码质量等级，可选值为 'low' | 'middle' | 'high' | 'highest'，顺序由低到高，默认middle
+  2. size，二维码大小，可选值为 'large' | 'small'，默认 'small'
+
+> 注意，如果你的 `vite.config.ts` 中的 `server` 字段的 `host` 未设置或设置错误，将无法暴露network给插件，从而无法正常预览!
 
 后续插件正在整理中...
