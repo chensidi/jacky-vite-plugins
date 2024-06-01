@@ -234,4 +234,31 @@ scanPreviewPlugin接受一个opts对象作为参数
 
 > 注意，如果你的 `vite.config.ts` 中的 `server` 字段的 `host` 未设置或设置错误，将无法暴露network给插件，从而无法正常预览!
 
+## 插件三 - check-version
+
+在发版部署过程中，经常遇到代码上线了，但是用户却说没有更新，然后往往就是让他手动刷新页面完成更新，本质原因就是用户察觉不到你的前端代码已经更新，该插件的目的就是自动检测代码更新，并且主动提示用户刷新界面。
+
+### usage
+
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
+import vue from '@vitejs/plugin-vue'
+import { checkVersion } from 'jacky-vite-plugins'
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [
+    vue(),
+    checkVersion()
+  ],
+})
+```
+
+### 参数
+
+checkVersion接受一个opts对象作为参数， 参数如下：
+1. interval, 检测版本的时间间隔，默认5000, 意味着每隔5s检测一次，当页面从后台切换到前台时也会检测一次
+
+
 后续插件正在整理中...
